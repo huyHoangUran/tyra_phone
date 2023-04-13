@@ -11,7 +11,7 @@
                 <th>Tên</th>
                 <th>Ảnh</th>
                 <th>Trạng thái</th>
-                <th> <a href="" class="btn btn-success">Tạo mới</a>
+                <th> <a href="{{ route('admin.banner.create') }}" class="btn btn-success">Tạo mới</a>
                 </th>
             </tr>
         </thead>
@@ -24,13 +24,10 @@
                     </td>
                     <td>
                         {{ $item->status == 1 ? 'Hiện' : 'Ẩn' }}
-
-
-
                     </td>
                     <td>
-                        <a href="{{ route('admin.product.edit', ['id' => $item->id]) }}" class="btn btn-primary">Sửa</a>
-                        <form action="{{ route('admin.product.destroy', ['id' => $item->id]) }}" method="POST">
+                        <a href="{{ route('admin.banner.edit', ['id' => $item->id]) }}" class="btn btn-primary">Sửa</a>
+                        <form action="{{ route('admin.banner.destroy', ['id' => $item->id]) }}" method="POST">
                             @csrf
                             @method('delete')
 

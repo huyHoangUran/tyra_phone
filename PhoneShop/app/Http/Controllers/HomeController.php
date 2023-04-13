@@ -11,12 +11,12 @@ class HomeController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */
+     */ 
     public function index(Banner $banner,Product $product)
     {
-        $banner =$banner->all();
+        $banner =$banner->where('status',1)->get();
         
-        $product = $product->all();
+        $product = $product->orderBy('id','DESC')->get();
         return view('client.home',compact('banner','product'));
     }
     /**
@@ -28,7 +28,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource i storage.
      */
     public function store(Request $request)
     {
@@ -40,24 +40,52 @@ class HomeController extends Controller
      */
     public function show(Request $request)
     {
-        return view('client.single_product');
+        $product = Product::find($request->id);
+        return view('client.single_product',compact('product'));
         
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    public function list(Request $request)
     {
-        //
+        $products = Product::orderBy('id','DESC')->get();
+        return view('client.list_product',compact('products'));
+        
     }
+    
+     public function addToCart($id){
+        $product = Product::find($id);
+        $cart = session()->get('cart',[]);
+        if(isset($cart[$id])){
+            $cart[$id]['quantity']++;
+            
+        }else{
+            $cart[$id]=[
+                
+                'name'=>$product->product_name,
+                'image'=>$product->image,
+                'price'=>$product->price,
+                'quantity'=>1
+                
+            
+            ];
+        }
+        session()->put('cart',$cart);
+        return redirect()->back();
+    }    
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function listCart(){
+        // session()->forget('cart');
+        return view('client.cart');
+    }
+    
+    public function updateCart(Request $request)
     {
-        //
+        if($request->id && $request->quantity){
+            $cart = session()->get('cart');
+            $cart[$request->id]["quantity"] = $request->quantity;
+            session()->put('cart', $cart);
+            session()->flash('success', 'Cart successfully updated!');
+        }
     }
 
     /**

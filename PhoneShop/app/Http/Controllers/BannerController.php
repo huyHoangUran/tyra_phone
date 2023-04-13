@@ -30,6 +30,24 @@ class BannerController extends Controller
             $formFields['image'] = $request->file('image')->store('banners', 'public');
         }
         $banner->create($formFields);
-        dd('done');
+        return redirect()->route('admin.banner');
+    }
+    public function edit(Request $request){
+        $id = $request->id;
+        $data = Banner::where('id', $id)->first();
+        return view('admin.banner.edit', compact('data'));
+    }
+    public function update(Request $request,Banner $banner){
+        $formFields = $request->validate([
+            'status'=> 'required',
+            
+        ]);
+        $banner->find($request->id)->update($formFields);
+
+        return redirect()->route('admin.banner');
+    }
+    public function destroy(Request $request, Banner $banner){
+        $banner->find($request->id)->delete();
+        return redirect()->route('admin.banner');
     }
 }

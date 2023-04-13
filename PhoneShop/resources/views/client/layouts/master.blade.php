@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="{{ BASE_URLH }}vendors/nice-select/nice-select.css">
     <link rel="stylesheet" href="{{ BASE_URLH }}vendors/owl-carousel/owl.theme.default.min.css">
     <link rel="stylesheet" href="{{ BASE_URLH }}vendors/owl-carousel/owl.carousel.min.css">
-
     <link rel="stylesheet" href="{{ BASE_URLH }}css/style.css">
+
 </head>
 
 <body>
@@ -22,13 +22,12 @@
 
     @include('client.layouts.nav')
     <main class="site-main">
-        @include('client.layouts.slide')
 
 
         {{--  --}}
         <section class="section-margin calc-60px">
             @yield('content')
-            </div>
+
         </section>
 
         <!-- ================ Blog section end ================= -->
@@ -45,7 +44,6 @@
     <!--================ End footer Area  =================-->
 
 
-
     <script src="{{ BASE_URLH }}vendors/jquery/jquery-3.2.1.min.js"></script>
     <script src="{{ BASE_URLH }}vendors/bootstrap/bootstrap.bundle.min.js"></script>
     <script src="{{ BASE_URLH }}vendors/skrollr.min.js"></script>
@@ -54,6 +52,7 @@
     <script src="{{ BASE_URLH }}vendors/jquery.ajaxchimp.min.js"></script>
     <script src="{{ BASE_URLH }}vendors/mail-script.js"></script>
     <script src="{{ BASE_URLH }}js/main.js"></script>
+    @yield('js')
 </body>
 
 </html>

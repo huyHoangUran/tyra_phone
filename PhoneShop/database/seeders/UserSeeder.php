@@ -18,9 +18,9 @@ class UserSeeder extends Seeder
         DB::table('Users')->insert([
             'name' => 'Nguyễn Hoàng',
             'image' => 'image.img',
-            'email' => 'huyhoang15.work2gmail.com',
+            'email' => 'huyhoang@gmail.com',
             'password' => bcrypt(123456789),
-            'role' => 1
+            'role' => 0
         ]);
     }
 }

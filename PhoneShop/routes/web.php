@@ -28,7 +28,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::prefix('admin')->group(function () {
+Route::middleware('checkadmin')->prefix('admin')->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('/', [ProductController::class, 'index'])->name('admin.product');
         Route::get('/create', [ProductController::class, 'create'])->name('admin.product.create');
@@ -59,7 +59,12 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/detail_product', [HomeController::class, 'show']);
+Route::get('/detail_product/{id}', [HomeController::class, 'show'])->name('detail_product');
+Route::get('/list_products', [HomeController::class, 'list'])->name('list_products');
+Route::get('/add_to_cart/{id}',[HomeController::class, 'addToCart'])->name('add_to_cart');
+Route::get('/list_cart',[HomeController::class, 'listCart'])->name('list_cart');
+Route::patch('/update_cart',[HomeController::class, 'updateCart'])->name('update_cart');
+Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove_from_cart');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
