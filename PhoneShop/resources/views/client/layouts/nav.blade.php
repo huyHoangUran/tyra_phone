@@ -27,8 +27,9 @@
 
                     <ul class="nav-shop">
                         <li class=" filter-bar-search">
-                            <form action="">
-                                <input type="text" placeholder="Search">
+                            <form action="{{ route('search') }} " method="post">
+                                @csrf
+                                <input type="text" placeholder="Search" name="name">
                                 <button><i class="ti-search"></i></button>
                             </form>
                         </li>
@@ -37,7 +38,16 @@
                                             class="ti-shopping-cart"></i></a></span></button> </li>
                         <li class="nav-item">
                             @auth
-                                {{ auth()->user()->name }}
+
+                                <div class="dropdown">
+                                    <button class="btn btn-light dropdown-toggle" type="button" data-toggle="dropdown"
+                                        aria-expanded="false">
+                                        {{ auth()->user()->name }}
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
+                                    </div>
+                                </div>
                             @else
                                 <a href="{{ route('login') }}">Đăng nhập
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -58,13 +59,16 @@ Route::middleware('checkadmin')->prefix('admin')->group(function () {
     });
 });
 
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('/');
 Route::get('/detail_product/{id}', [HomeController::class, 'show'])->name('detail_product');
 Route::get('/list_products', [HomeController::class, 'list'])->name('list_products');
 Route::get('/add_to_cart/{id}',[HomeController::class, 'addToCart'])->name('add_to_cart');
 Route::get('/list_cart',[HomeController::class, 'listCart'])->name('list_cart');
 Route::patch('/update_cart',[HomeController::class, 'updateCart'])->name('update_cart');
 Route::delete('remove-from-cart', [HomeController::class, 'remove'])->name('remove_from_cart');
+Route::get('/logout',[AdminController::class,'logout'])->name('logout');
+Route::post('/search',[HomeController::class, 'search'])->name('search');
+Route::get('/logout',[AdminController::class,'logout'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

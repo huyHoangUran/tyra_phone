@@ -22,9 +22,11 @@ class HomeController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+        $data = $request->name;
+        $searchProduct = Product::where('product_name', 'like','%'.$data.'%')->get();
+        return view('client.search', compact('searchProduct'));
     }
 
     /**
